@@ -2,10 +2,10 @@ const Question = require("../models/Question.model")
 
 module.exports.questionControllers = {
     addQuestion: async (req, res) => {
-        const { text, tags} = req.body
+        const { text, tags, } = req.body
         try{
             const question = await Question.create({
-                author: req.user,
+                author: req.user.id,
                 text,
                 tags
             })
@@ -69,7 +69,7 @@ module.exports.questionControllers = {
     downRaiting: async (req, res)=>{
         try{
             await Question.findByIdAndUpdate(req.params.id, {
-                $addToSet: {raiting: req.user.id}
+                $pull: {raiting: req.user.id}
             })
             res.status(200).json("успешно")
         }

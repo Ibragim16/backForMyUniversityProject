@@ -3,12 +3,12 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/User.model")
 module.exports.usersController = {
     registerUser: async (req, res)=>{
-        const {firstname, lastname, email, phone, password} = req.body
+        const {firstName, lastName, email, phone, password} = req.body
         try{
             const hash = await bcrypt.hash(password, 10)
             const user = await User.create({
-                firstname,
-                lastname,
+                firstName,
+                lastName,
                 email,
                 phone,
                 password: hash
@@ -16,13 +16,13 @@ module.exports.usersController = {
             res.status(200).json(user)
         }
         catch(err){
-            res.status(500).json(err.ToString())
+            res.status(500).json(err.toString())
         }
     },
     loginUser: async (req, res)=>{
         const {email, password} = req.body;
         try{
-            const user = await User.find({email})
+            const user = await User.findOne({email})
             if(!user){
                 res.status(500).json("Неравильный логин или пароль")
             }
@@ -41,10 +41,10 @@ module.exports.usersController = {
             const token = await jwt.sign(payload, "Fndnufdufnid", {
                 expiresIn: "30d"
             } ) 
-            res.status(200).json(token, payload)
+            res.status(200).json({token, payload})
         }
         catch(err){
-            res.status(500).json(err.ToString())
+            res.status(501).json(err.toString())
         }
     }
 }

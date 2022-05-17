@@ -6,7 +6,7 @@ const app = express();
 const PORT = 4000;
 app.use(cors());
 app.use(express.json());
-app.use(require("./routes"))
+app.use(require("./routes"));
 
 (async () => {
   try {

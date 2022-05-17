@@ -13,6 +13,6 @@ module.exports = async (req,res,next)=>{
         next()
     }
     catch(err){
-        res.status(500).json(err.ToString())
+        res.status(500).json(err.toString())
     }
 }
