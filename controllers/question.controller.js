@@ -16,6 +16,24 @@ module.exports.questionControllers = {
             res.status(501).json(err.toString())
         }
     },
+    getQuestion: async (req, res)=>{
+        try{
+            const questions = await Question.find().populate("author")
+            res.json(questions)
+        }
+        catch(err){
+            res.status(501).json(err.toString())
+        }
+    },
+    getOneQuestion: async (req, res)=>{
+        try{
+            const question = await Question.findById(req.params.id).populate("author")
+            res.json(question)
+        }
+        catch(err){
+            res.json(err.toString())
+        }
+    },
     deleteQuestion: async (req,res) => {
         try{
             await Question.findByIdAndDelete(req.params.id)

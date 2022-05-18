@@ -24,7 +24,7 @@ module.exports.usersController = {
         try{
             const user = await User.findOne({email})
             if(!user){
-                res.status(500).json("Неравильный логин или пароль")
+                res.status(500).json("Неправильный логин или пароль")
             }
             const passwordValid = await bcrypt.compare(password, user.password)
             if(!passwordValid){
@@ -41,6 +41,7 @@ module.exports.usersController = {
             const token = await jwt.sign(payload, "Fndnufdufnid", {
                 expiresIn: "30d"
             } ) 
+            console.log(token)
             res.status(200).json({token, payload})
         }
         catch(err){
