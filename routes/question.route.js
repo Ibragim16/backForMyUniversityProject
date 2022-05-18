@@ -5,6 +5,8 @@ const authMiddlewere = require("../middlewere/auth.middlewere")
 const router = Router()
 
 router.post("/question", authMiddlewere, questionControllers.addQuestion )
+router.get("/question", authMiddlewere, questionControllers.getQuestion)
+router.get("/question/:id", authMiddlewere, questionControllers.getOneQuestion)
 router.delete("/question/:id", authMiddlewere, questionControllers.deleteQuestion)
 router.patch("/question/addTag/:id", authMiddlewere, questionControllers.addTags)
 router.patch("/question/deleteTag/:id", authMiddlewere, questionControllers.deleteTag)
