@@ -10,7 +10,7 @@ const commentsSchema = mongoose.Schema({
         required: true
     },
     question: {
-        ref: "User",
+        ref: "Question",
         type: mongoose.Schema.Types.ObjectId
     }
 },

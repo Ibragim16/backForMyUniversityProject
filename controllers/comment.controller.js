@@ -4,11 +4,12 @@ module.exports.commentControllers = {
     addComment: async (req,res)=>{
         const {text} = req.body
         try{
-            const comment = await Comment.create({
+            const result = await Comment.create({
                 author: req.user.id,
                 text,
                 question: req.params.id
             })
+            const comment = await Comment.findById(result._id).populate("author")
             res.json(comment)
         }
         catch(err){
@@ -35,7 +36,7 @@ module.exports.commentControllers = {
     },
     getCommentsByQuestionId: async (req, res)=>{
         try{
-            const comments = await Comment.find({question: req.params.id})
+            const comments = await Comment.find({question: req.params.id}).populate("author").populate("question")
             res.json(comments)
         }
         catch(err){
