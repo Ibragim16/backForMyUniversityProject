@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const Favorite = require("../models/favorite.model")
 const User = require("../models/User.model")
 module.exports.usersController = {
     registerUser: async (req, res)=>{
@@ -12,6 +13,9 @@ module.exports.usersController = {
                 email,
                 phone,
                 password: hash
+            })
+            await Favorite.create({
+                owner: user._id,
             })
             res.status(200).json(user)
         }
