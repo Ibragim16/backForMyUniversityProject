@@ -9,7 +9,7 @@ module.exports.commentControllers = {
                 text,
                 question: req.params.id
             })
-            const comment = await Comment.findById(result._id).populate("author")
+            const comment = await Comment.find().populate("author")
             res.json(comment)
         }
         catch(err){

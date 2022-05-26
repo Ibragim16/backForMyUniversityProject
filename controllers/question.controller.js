@@ -2,11 +2,12 @@ const Question = require("../models/Question.model")
 
 module.exports.questionControllers = {
     addQuestion: async (req, res) => {
-        const { text, tags, } = req.body
+        const { text, tags,title } = req.body
         try{
             const question = await Question.create({
                 author: req.user.id,
                 text,
+                title,
                 tags
             })
 
