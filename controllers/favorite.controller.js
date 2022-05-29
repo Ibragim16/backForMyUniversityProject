@@ -1,5 +1,4 @@
 const Favorite = require("../models/favorite.model");
-const { path } = require("../routes");
 
 module.exports.favoriteControllers = {
   createFavorite: async (req, res) => {
@@ -24,12 +23,12 @@ module.exports.favoriteControllers = {
     }
   },
   addToFavorite: async (req, res) => {
-    const { questionID } = req.params;
+    const { id } = req.params;
     try {
-      const userFav = await Favorite.find({ owner: req.user.id });
+      const userFav = await Favorite.findOne({ owner: req.user.id });
       const favorite = await Favorite.findByIdAndUpdate(userFav._id, {
         $addToSet: {
-          questions: questionID,
+          questions: id,
         },
       });
       res.json(favorite);
@@ -38,12 +37,12 @@ module.exports.favoriteControllers = {
     }
   },
   deleteToFavorite: async (req, res) => {
-    const { questionID } = req.params;
+    const { id } = req.params;
     try {
-      const userFav = await Favorite.find({ owner: req.user.id });
-      const favorite = await findByIdAndUpdate(userFav._id, {
+      const userFav = await Favorite.findOne({ owner: req.user.id });
+      const favorite = await Favorite.findByIdAndUpdate(userFav._id, {
         $pull: {
-          questions: questionID,
+          questions: id,
         },
       });
       res.json(favorite);
