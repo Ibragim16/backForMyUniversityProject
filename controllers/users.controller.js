@@ -40,7 +40,8 @@ module.exports.usersController = {
                 email: user._email,
                 firstname: user._firstname,
                 lastname: user._lastname,
-                phone: user._phone
+                phone: user._phone,
+                img: user.img
             }
             const token = await jwt.sign(payload, "Fndnufdufnid", {
                 expiresIn: "30d"
@@ -50,6 +51,15 @@ module.exports.usersController = {
         }
         catch(err){
             res.status(501).json(err.toString())
+        }
+    },
+    getUser: async (req, res)=>{
+        try{
+            const user = await User.findById(req.user.id)
+            res.json(user)
+        }
+        catch(err){
+            res.json(err.toString())
         }
     }
 }
