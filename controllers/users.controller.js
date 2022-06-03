@@ -4,7 +4,7 @@ const Favorite = require("../models/favorite.model")
 const User = require("../models/User.model")
 module.exports.usersController = {
     registerUser: async (req, res)=>{
-        const {firstName, lastName, email, phone, password} = req.body
+        const {firstName, lastName, email, phone, password, img} = req.body
         try{
             const hash = await bcrypt.hash(password, 10)
             const user = await User.create({
@@ -12,7 +12,8 @@ module.exports.usersController = {
                 lastName,
                 email,
                 phone,
-                password: hash
+                password: hash,
+                img
             })
             await Favorite.create({
                 owner: user._id,
